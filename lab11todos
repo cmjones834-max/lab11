@@ -1,0 +1,39 @@
+public class CheckoutService {
+    private final ReceiptPrinter printer;
+}
+
+public CheckoutService(ReceiptPrinter printer) {
+    this.printer = java.util.Objects.requireNonNull(printer, "printer");
+}
+
+public CheckoutService(ReceiptPrinter printer) {
+    this.printer = Objects.requireNonNull(printer, "printer");
+}
+
+public void printReceipt(ShoppingCart cart) {
+    String receipt = renderReceipt(cart);
+    printer.print(receipt);
+}
+
+public class RecordingReceiptPrinter implements ReceiptPrinter {
+
+    @Override
+    public void print(String receipt) {
+        throw new UnsupportedOperationException("record receipt");
+    }
+}
+
+public class RecordingReceiptPrinter implements ReceiptPrinter {
+
+    private final java.util.List<String> receipts = new java.util.ArrayList<>();
+
+    @Override
+    public void print(String receipt) {
+        String nonNull = java.util.Objects.requireNonNull(receipt, "receipt");
+        receipts.add(nonNull);
+    }
+
+    public java.util.List<String> getReceipts() {
+        return java.util.Collections.unmodifiableList(receipts);
+    }
+}
